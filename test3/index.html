@@ -5,14 +5,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>\
     <script src="index.js" defer></script>
+    <style>
+        .error{
+            color: red;
+        }
+    </style>
 </head>
 <body>
     <form novalidate>
-        <label>Imie</label>
-        <input name="name" />
-        <span id="nameError"></span>
+        <div id="email_container">
+            <label for="email">Email: </label>
+            <input type="email" id="email" name="email">
+            <span id="emailError" class="error"></span><br><br>
+        </div>
 
-        <button type="submit">Zapisz</button>
+
+        <label for="password">Hasło: </label>
+        <input type="password" id="password" name="password">
+        <span id="passwordError" class="error"></span><br><br>
+
+        <label>Kraj</label>
+        <select name="kraj">
+            <option value="pl">Poland</option>
+            <option value="us">USA</option>
+            <option value="de">Germany</option>
+            <option value="fr">France</option>
+        </select><br><br>
+     <br><button type="submit">Wyślij</button>
     </form>
 </body>
+
 </html>

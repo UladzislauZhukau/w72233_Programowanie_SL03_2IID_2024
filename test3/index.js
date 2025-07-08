@@ -1,64 +1,86 @@
+function formIsValid(){
+    let isValid = true
+    isValid = checkEmail(emailInput, emailError) && isValid
+    isValid = checkPassword(passwordInput, passwordError) && isValid
+    return isValid
+}
+
+function showError(element, message){
+    element.textContent = message
+}
+
+function clearError(element){
+    element.textContent = ''
+}
+
+function checkEmail(emailInput, emailError){
+    const emailValue = emailInput.value.trim();
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (emailValue === '') {
+        showError(emailError, 'Adres e-mail jest wymagany.');
+        return false
+    } else if (!emailRegex.test(emailValue)) {
+        showError(emailError, 'Wprowadź poprawny adres e-mail.');
+        return false
+    }
+    clearError(emailError);
+    return true
+}
+
+function checkPassword(passwordInput, passwordError){
+    const strongPasswordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d@$!%*?&]{8,}$/;
+    if (!strongPasswordRegex.test(passwordInput.value)) {
+        showError(passwordError, 'Hasło musi mieć min. 8 znaków, zawierać dużą literę, małą literę icyfrę.');
+        return false
+    }
+    clearError(passwordError);
+    return true
+}
+
+//function checkAge(birthInput, birthError){
+//    const today = new Date()
+//    const birthDate = new Date(birthInput.value)
+//
+//   let age = today.getFullYear() - birthDate.getFullYear();
+//    const m = today.getMonth() - birthDate.getMonth();
+//
+//    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+//        age--;
+//    }
+//
+//    if (age < 18){
+//        showError(birthError, 'Użytkownik musi mieć 18 lat')
+//        return false
+//    }
+//    clearError(birthError)
+//    return true
+//}
+
+function checkExistens(emailInput, phoneInput, users){
+    users.forEach(user => {
+        if (emailInput.value == user.email | phoneInput.value == user.phone){
+            alert('Użytkownik z takim emailem lub telefonem już istnieje')
+            return false
+        }
+    });
+    return true
+}
+
+
 const form = document.querySelector('form');
 
-form.addEventListener('submit', event => {
-    event.preventDefault();
+const emailContainer = form.querySelector('#email_container')
 
-    if(isValid()) {
-        //TODO 
-    }
-});
+const emailInput = form.querySelector('#email')
+const emailError = form.querySelector('#emailError')
 
+emailInput.addEventListener('blur', (event)=>{
+    checkEmail(emailInput, emailError)
+})
 
-const nameInput = document.querySelector('input[name=name]');
-const nameError = document.querySelector('#nameError');
+const passwordInput = form.querySelector('#password')
+const passwordError = form.querySelector('#passwordError')
 
-
-nameInput.addEventListener('blur', () => {
-    checkIsEmpty(nameInput, nameError); 
-});
-
-function isValid() {
-    let valid = true;
-
-    valid = !checkIsEmpty(nameInput, nameError) && valid; 
-
-    return valid;
-}
-
-
-function checkIsEmpty(input, error) {
-    if(input.value == '') {
-        error.textContent = 'Pole jest wymagane';
-        return true;
-    }
-
-    error.textContent = '';
-    return false;
-}
-
-
-const car = {mark: 'opel'};
-
-
-function Car(mark) {
-    this.mark = mark;
-
-    this.info = function() {
-        console.log(this.mark);
-    }
-}
-
-const car2 = new Car('toyota');
-
-console.log(car2);
-
-car2.info();
-
-
-const cars = [car2, new Car('opel')];
-
-
-for(let i = 0; i < cars.length; i++)
-{
-    cars[i].info();
-}
+passwordInput.addEventListener('blur', (event)=>{
+    checkPassword(passwordInput, passwordError)
+})
