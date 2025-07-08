@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script src="index.js" defer></script>
+<body>
+    <form novalidate id="main-form" onsubmit="return checkForm(this)" method="post">
+        <label for="name">Имя:</label>
+        <input type="text" name="name" placeholder="Имя" id="name"/><br><br>
+        <span id="nameError"></span>
+        <label for="password">Пароль:</label>
+        <input type="password" name="pass" placeholder="Пароль" id="pass"></form><br><br>
+        <label for="repass">Проверка пароля:</label>
+        <input type="password" name="repass" placeholder="Проверка пароля" id="repass"><br><br>
+        <span>Пол:</span>
+        <input type="radio" name="state" id="male" value="мужской">
+        <label for="male">Мужской</label>
+        <input type="radio" name="female" id="female" value="женский">
+        <label for="female">Женский</label>
+        <input type="button" name="submit" value="готово"><br><br>
+        <button type="submit">Done</button>
+    </form>
+
+
+</body>
+</html>
